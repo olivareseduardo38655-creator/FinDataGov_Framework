@@ -1,0 +1,61 @@
+# DATA CONTRACT: CREDIT RISK ASSESSMENT
+# Version: 1.0.0
+# Status: ACTIVE
+# Sensitivity: PII / CONFIDENTIAL
+
+metadata:
+  domain: "Credit Risk"
+  owner_team: "Risk Engineering Squad"
+  data_steward: "Chief Risk Officer (CRO)"
+  sla_delivery: "06:00 AM daily"
+  retention_policy: "10 years (CNBV Compliance)"
+
+datasets:
+  - name: "clients"
+    description: "Master record of customers approved for credit evaluation."
+    criticality: "HIGH"
+    schema:
+      - column: "client_id"
+        type: "int"
+        nullable: false
+        business_rule: "Must be unique. Range 1000+"
+      
+      - column: "email"
+        type: "string"
+        nullable: false
+        business_rule: "Must contain valid domain structure. Critical for notification."
+        pii: true
+
+      - column: "age"
+        type: "int"
+        nullable: false
+        business_rule: "Legal age for credit is 18+. Max reasonable age 100."
+
+      - column: "credit_score"
+        type: "int"
+        nullable: true
+        business_rule: "FICO score range: 300 - 850."
+
+  - name: "credits"
+    description: "Transactional record of credit applications."
+    criticality: "CRITICAL"
+    schema:
+      - column: "credit_id"
+        type: "string"
+        nullable: false
+        business_rule: "Format CR-XXXXX."
+
+      - column: "client_id"
+        type: "int"
+        nullable: false
+        business_rule: "Foreign Key. Must exist in clients dataset."
+
+      - column: "requested_amount"
+        type: "float"
+        nullable: false
+        business_rule: "Must be positive value > 0."
+
+      - column: "interest_rate"
+        type: "float"
+        nullable: false
+        business_rule: "Regulatory cap at 100%. Must be positive."

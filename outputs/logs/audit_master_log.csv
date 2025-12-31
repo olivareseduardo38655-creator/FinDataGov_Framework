@@ -1,0 +1,3 @@
+timestamp,dataset,status,score,hash_signature
+2025-12-30T20:34:23.909314,clients,PASSED,88.0,e696c5278d6042e5
+2025-12-30T20:34:23.918901,credits,REJECTED,80.0,41b0cb933ccc53f9
